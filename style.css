@@ -211,18 +211,18 @@ html {
 }
 
 .section-heading {
-    font-size: 2rem;
-    font-weight: 300;
-    color: #fff;
-    text-transform: uppercase;
-    position: absolute;
-    top: 50%;
-    left: 10rem;
-    transform: translateY(-50%);
-    width: 0;
-    word-break: break-all;
-    line-height: 4;
-  }
+  font-size: 2rem;
+  font-weight: 300;
+  color: #fff;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 10rem;
+  transform: translateY(-50%);
+  width: 0;
+  word-break: break-all;
+  line-height: 4;
+}
 /* End of Featured Text */
 
 /* Main Project Arrow Button */
@@ -392,7 +392,7 @@ html {
 
 .project {
   width: 40rem;
-  height: 45rem;
+  height: 50rem;
   overflow: hidden;
   margin: 6rem;
   background-color: #000;
@@ -542,3 +542,167 @@ html {
   border-right: none;
 }
 /* --------------------------------Section 3-------------------------------------*/
+
+/* --------------------------------Section 4-------------------------------------*/
+.section-4 {
+  position: relative;
+  width: 100%;
+  /* height: 100vh; */
+}
+
+/* Services */
+.services-wrapper {
+  width: 100%;
+  flex-direction: column;
+}
+
+.service {
+  width: 70%;
+  margin: 2rem 0;
+  border-bottom: 0.5rem solid #9b0e0e;
+}
+
+.service-btn {
+  width: 100%;
+  position: relative;
+  display: block;
+  height: 15rem;
+}
+
+.service-btn span {
+  font-size: 8rem;
+  font-style: italic;
+  font-weight: bold;
+  color: #9b0e0e;
+  position: absolute;
+  right: 0;
+  pointer-events: none;
+  transition: right 0.5s;
+}
+
+.service-text {
+  font-size: 5rem;
+  color: #777;
+  letter-spacing: 0.1rem;
+  height: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.change.service-text {
+  height: 15rem;
+  visibility: visible;
+  opacity: 1;
+  transition: height 0.5s, opacity 0.5s 0.5s;
+}
+/* --------------------------------Section 4-------------------------------------*/
+
+/* --------------------------------Section 5-------------------------------------*/
+.section-5 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* Form */
+.form-heading {
+  font-size: 6rem;
+  font-weight: 400;
+  color: #9b0e0e;
+  letter-spacing: 0.3rem;
+  margin-bottom: 3rem;
+  transition: opacity 0.3s;
+}
+
+.contact-form {
+  flex-direction: column;
+}
+
+.contact-form-input {
+  width: 60rem;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 0.1rem solid #9b0e0e;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #aaa;
+  letter-spacing: 0.1rem;
+  height: 5rem;
+}
+
+.contact-form-textarea {
+  height: 25rem;
+  resize: none;
+}
+
+.form-submit-btn {
+  width: 20rem;
+  height: 5rem;
+  background-color: #9b0e0e;
+  border: none;
+  align-self: flex-start;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+/* Form Validation */
+.message {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f55e5e;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  margin: 0 auto 1rem 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.error.message {
+  visibility: visible;
+  opacity: 1;
+}
+/* End of Form Validation */
+/* End of Form */
+
+/* Slideshow */
+.slideshow {
+    display: flex;
+    width: 50rem;
+    margin-top: 10rem;
+    padding: 0 2rem;
+  }
+  
+  .slideshow-link {
+    width: 20%;
+    filter: brightness(0.5);
+    transition: filter 1.5s;
+  }
+  
+  .slideshow-link:nth-child(1),
+  .slideshow-link:nth-child(5) {
+    transition: width 0.5s, opacity 0.5s;
+  }
+  
+  .slideshow-link:nth-child(3) {
+    transition: filter 0.5s;
+  }
+  
+  .slideshow-link img {
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .faded-out {
+    opacity: 0;
+    width: 0;
+  }
+  
+  .light {
+    filter: brightness(1.5);
+  }
+
+/* --------------------------------Section 5-------------------------------------*/
