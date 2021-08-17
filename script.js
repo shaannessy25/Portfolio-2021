@@ -1,18 +1,121 @@
-const mouseCircle = document.querySelector(".mouse-circle");
-const mouseDot = document.querySelector(".mouse-dot");
+/*----------------------Navbar---------------------------*/
+const menuIcon = document.querySelector(".menu-icon");
+const navbar = document.querySelector(".navbar");
 
-const mouseCircleFn = (x, y) => {
-  mouseCircle.style.cssText = `top: ${y}px; left: ${x}px; opacity: 1;`;
-  mouseDot.style.cssText = `top: ${y}px; left: ${x}px; opacity: 1;`;
+const scrollFn = () => {
+  menuIcon.classList.add("show-menu-icon");
+  navbar.classList.add("hide-navbar");
+
+  if (window.scrollY === 0) {
+    menuIcon.classList.remove("show-menu-icon");
+    navbar.classList.remove("hide-navbar");
+  }
+
+  progressBarFn();
 };
 
+document.addEventListener("scroll", scrollFn);
+
+menuIcon.addEventListener("click", () => {
+  menuIcon.classList.remove("show-menu-icon");
+  navbar.classList.remove("hide-navbar");
+});
+
+/*----------------------Navbar---------------------------*/
+
+/*----------------------Progress Bar---------------------------*/
+const sections = document.querySelectorAll("section");
+const progressBar = document.querySelector(".progress-bar");
+const halfCircles = document.querySelectorAll(".half-circle");
+const halfCircleTop = document.querySelector(".half-circle-top");
+const progressBarCircle = document.querySelector(".progress-bar-circle");
+
+let scrolledPortion = 0;
+let scrollBool = false;
+let imageWrapper = false;
+
+const progressBarFn = (bigImgWrapper) => {
+  imageWrapper = bigImgWrapper;
+  let pageHeight = 0;
+  const pageViewportHeight = window.innerHeight;
+
+  if (!imageWrapper) {
+    pageHeight = document.documentElement.scrollHeight;
+    scrolledPortion = window.pageYOffset;
+  } else {
+    pageHeight = imageWrapper.firstElementChild.scrollHeight;
+    scrolledPortion = imageWrapper.scrollTop;
+  }
+
+  const scrolledPortionDegree =
+    (scrolledPortion / (pageHeight - pageViewportHeight)) * 360;
+
+  halfCircles.forEach((el) => {
+    el.style.transform = `rotate(${scrolledPortionDegree}deg)
+`;
+
+    if (scrolledPortionDegree >= 180) {
+      halfCircles[0].style.transform = "rotate(180deg)";
+      halfCircleTop.style.opacity = "0";
+    } else {
+      halfCircleTop.style.opacity = "1";
+    }
+  });
+
+  scrollBool = scrolledPortion + pageViewportHeight === pageHeight;
+
+  // Arrow Rotation
+  if (scrollBool) {
+    progressBarCircle.style.transform = "rotate(180deg)";
+  } else {
+    progressBarCircle.style.transform = "rotate(0)";
+  }
+  // End of Arrow Rotation
+};
+
+// Progress Bar Click
+progressBar.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (!imageWrapper) {
+    const sectionPositions = Array.from(sections).map(
+      (section) => scrolledPortion + section.getBoundingClientRect().top
+    );
+
+    const position = sectionPositions.find((sectionPosition) => {
+      return sectionPosition > scrolledPortion;
+    });
+
+    scrollBool ? window.scrollTo(0, 0) : window.scrollTo(0, position);
+  } else {
+    scrollBool
+      ? imageWrapper.scrollTo(0, 0)
+      : imageWrapper.scrollTo(0, imageWrapper.scrollHeight);
+  }
+});
+// End of Progress Bar Click
+
+progressBarFn();
+
+/*----------------------Progress Bar---------------------------*/
+
 /*----------------------Animated Circles---------------------------*/
+const mouseCircle = document.querySelector(".mouse-circle");
+const mouseDot = document.querySelector(".mouse-dot");
+let mouseCircleBool = true;
+
+const mouseCircleFn = (x, y) => {
+  mouseCircleBool &&
+    (mouseCircle.style.cssText = `top: ${y}px; left: ${x}px; opacity: 1`);
+
+  mouseDot.style.cssText = `top: ${y}px; left: ${x}px; opacity: 1`;
+};
 const circles = document.querySelectorAll(".circle");
 const mainImg = document.querySelector(".main-circle img");
 
 let mX = 0;
 let mY = 0;
-const z = 100;
+const z = 40;
 const animateCircles = (e, x, y) => {
   if (x < mX) {
     circles.forEach((circle) => {
@@ -47,6 +150,10 @@ document.body.addEventListener("mousemove", (e) => {
 
   mouseCircleFn(x, y);
   animateCircles(e, x, y);
+  const hoveredEl = document.elementFromPoint(x, y);
+
+  stickyElement(x, y, hoveredEl);
+  mouseCircleTransform(hoveredEl);
 });
 
 document.body.addEventListener("mouseleave", () => {
@@ -55,6 +162,67 @@ document.body.addEventListener("mouseleave", () => {
 });
 
 /*----------------------Animated Circles---------------------------*/
+
+/*----------------------Sticky Element---------------------------*/
+let hoveredElPosition = [];
+
+const stickyElement = (x, y, hoveredEl) => {
+  if (hoveredEl.classList.contains("sticky")) {
+    hoveredElPosition.length < 1 &&
+      (hoveredElPosition = [hoveredEl.offsetTop, hoveredEl.offsetLeft]);
+
+    hoveredEl.style.cssText = `top: ${y}px; left: ${x}px`;
+
+    if (
+      hoveredEl.offsetTop <= hoveredElPosition[0] - 100 ||
+      hoveredEl.offsetTop >= hoveredElPosition[0] + 100 ||
+      hoveredEl.offsetLeft <= hoveredElPosition[1] - 100 ||
+      hoveredEl.offsetLeft >= hoveredElPosition[1] + 100
+    ) {
+      hoveredEl.style.cssText = "";
+      hoveredElPosition = [];
+    }
+
+    hoveredEl.onmouseleave = () => {
+      hoveredEl.style.cssText = "";
+      hoveredElPosition = [];
+    };
+  }
+};
+
+/*----------------------Sticky Element---------------------------*/
+
+/*----------------------Mouse Circle Transform---------------------------*/
+const mouseCircleTransform = (hoveredEl) => {
+  if (hoveredEl.classList.contains("pointer-enter")) {
+    hoveredEl.onmousemove = () => {
+      mouseCircleBool = false;
+      mouseCircle.style.cssText = `
+      width: ${hoveredEl.getBoundingClientRect().width}px;
+      height: ${hoveredEl.getBoundingClientRect().height}px;
+      top: ${hoveredEl.getBoundingClientRect().top}px;
+      left: ${hoveredEl.getBoundingClientRect().left}px;
+      opacity: 1;
+      transform: translate(0, 0);
+      animation: none;
+      border-radius: ${getComputedStyle(hoveredEl).borderBottomLeftRadius};
+      transition: width .5s, height .5s, top .5s, left .5s, transform .5s, border-radius .5s;
+      `;
+    };
+
+    hoveredEl.onmouseleave = () => {
+      mouseCircleBool = true;
+    };
+
+    document.onscroll = () => {
+      if (!mouseCircleBool) {
+        mouseCircle.style.top = `${hoveredEl.getBoundingClientRect().top}px`;
+      }
+    };
+  }
+};
+
+/*----------------------Mouse Circle Transform---------------------------*/
 
 /*----------------------Main Button---------------------------*/
 const mainBtns = document.querySelectorAll(".main-btn");
@@ -112,7 +280,7 @@ projects.forEach((project, i) => {
     project.firstElementChild.style.top = "2rem";
   });
 
-  // Big Project
+  // Big Project Image
   project.addEventListener("click", () => {
     const bigImgWrapper = document.createElement("div");
     bigImgWrapper.className = "project-img-wrapper";
@@ -125,15 +293,30 @@ projects.forEach((project, i) => {
     bigImgWrapper.appendChild(bigImg);
     document.body.style.overflowY = "hidden";
 
+    document.removeEventListener("scroll", scrollFn);
+
+    mouseCircle.style.opacity = 0;
+
+    progressBarFn(bigImgWrapper);
+
+    bigImgWrapper.onscroll = () => {
+      progressBarFn(bigImgWrapper);
+    };
+
     projectHideBtn.classList.add("change");
 
     projectHideBtn.onclick = () => {
       projectHideBtn.classList.remove("change");
       bigImgWrapper.remove();
       document.body.style.overflowY = "scroll";
+
+      document.addEventListener("scroll", scrollFn);
+
+      progressBarFn();
     };
   });
-  //   Hides Last 4 projects
+  // End of Big Project Image
+
   i >= 6 && (project.style.cssText = "display: none; opacity: 0");
 });
 
@@ -224,7 +407,6 @@ formInputs.forEach((input) => {
   });
 });
 
-
 // Slideshow
 const slideshow = document.querySelector(".slideshow");
 
@@ -246,9 +428,9 @@ setInterval(() => {
 
     setTimeout(() => {
       firstIcon.classList.remove("faded-out");
-    }, 500);
-  }, 500);
-}, 3000);
+    }, 600);
+  }, 600);
+}, 2500);
 // End of Slideshow
 
 // Form Validation
