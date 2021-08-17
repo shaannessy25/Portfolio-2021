@@ -341,8 +341,8 @@ html {
 .main-btn {
   position: absolute;
   bottom: 3rem;
-  width: 13rem;
-  height: 13rem;
+  width: 10rem;
+  height: 10rem;
   background-color: #9b0e0e;
   border-radius: 50%;
   border: 0.2rem dotted #fff;
@@ -355,20 +355,39 @@ html {
   height: 100%;
   border: 0.2rem dotted #e7be08;
   border-radius: 50%;
-  transform: rotate(40deg);
   transition: transform 0.2s, border 0.2s;
 }
 
 .main-btn:hover .main-btn-content {
-  transform: rotate(60deg);
+  transform: rotate(180deg);
   border: -0.2rem dotted #9b0e0e;
   transition: transform 0.2s 0.5s, border 0.2s;
+  animation: mainBtnContentAnim 600ms cubic-bezier(0.1, -0.6, 0.2, 0);
 }
+
+@keyframes mainBtnContentAnim {
+  0%{
+    transform: rotate(0deg);
+  }
+  25%{
+    transform: rotate(45deg);
+  }
+  50%{
+    transform: rotate(90deg);
+  }
+  75% {
+    transform: rotate(135deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
 .main-btn-line {
   position: absolute;
-  top: 4rem;
-  width: 3rem;
-  height: 0.5rem;
+  top: 2.5rem;
+  width: 2rem;
+  height: 0.3rem;
   border: 0.1rem solid #fff;
 }
 
@@ -393,9 +412,32 @@ html {
   position: absolute;
   bottom: 3rem;
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   text-transform: uppercase;
+}
+
+.main-btn:hover span {
+  transform: rotate(180deg) translateY(-50%);
+  animation: mainBtnSpanAnim 600ms cubic-bezier(0.1, -0.6, 0.2, 0);
+}
+
+@keyframes mainBtnSpanAnim {
+  0%{
+    transform: rotate(0deg);
+  }
+  25%{
+    transform: rotate(45deg);
+  }
+  50%{
+    transform: rotate(90deg);
+  }
+  75% {
+    transform: rotate(135deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
 }
 
 .ripple {
@@ -405,7 +447,7 @@ html {
   background-color: #e7be08;
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  animation: rippleAnim 0.5s forwards;
+  animation: rippleAnim 0.4s forwards;
 }
 
 @keyframes rippleAnim {
