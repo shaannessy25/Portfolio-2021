@@ -1,4 +1,4 @@
-/*----------------------Navbar---------------------------*/
+/*-----------------------------------------Navbar------------------------------------------------*/
 const menuIcon = document.querySelector(".menu-icon");
 const navbar = document.querySelector(".navbar");
 
@@ -21,9 +21,12 @@ menuIcon.addEventListener("click", () => {
   navbar.classList.remove("hide-navbar");
 });
 
-/*----------------------Navbar---------------------------*/
+/*-----------------------------------------Navbar------------------------------------------------*/
 
-/*----------------------Progress Bar---------------------------*/
+
+
+
+/*-----------------------------------------Progress Bar------------------------------------------------*/
 const sections = document.querySelectorAll("section");
 const progressBar = document.querySelector(".progress-bar");
 const halfCircles = document.querySelectorAll(".half-circle");
@@ -97,9 +100,13 @@ progressBar.addEventListener("click", (e) => {
 
 progressBarFn();
 
-/*----------------------Progress Bar---------------------------*/
+/*-----------------------------------------Progress Bar------------------------------------------------*/
 
-/*----------------------Animated Circles---------------------------*/
+
+
+
+
+/*-----------------------------------------Animated Circles------------------------------------------------*/
 const mouseCircle = document.querySelector(".mouse-circle");
 const mouseDot = document.querySelector(".mouse-dot");
 let mouseCircleBool = true;
@@ -161,9 +168,12 @@ document.body.addEventListener("mouseleave", () => {
   mouseDot.style.opacity = "0";
 });
 
-/*----------------------Animated Circles---------------------------*/
+/*-----------------------------------------Animated Circles------------------------------------------------*/
 
-/*----------------------Sticky Element---------------------------*/
+
+
+
+/*-----------------------------------------Sticky Elements----------------------------------------------------*/
 let hoveredElPosition = [];
 
 const stickyElement = (x, y, hoveredEl) => {
@@ -190,9 +200,11 @@ const stickyElement = (x, y, hoveredEl) => {
   }
 };
 
-/*----------------------Sticky Element---------------------------*/
+/*-----------------------------------------Sticky Elements----------------------------------------------------*/
 
-/*----------------------Mouse Circle Transform---------------------------*/
+
+
+/*-----------------------------------------Mouse Circle Transform------------------------------------------------*/
 const mouseCircleTransform = (hoveredEl) => {
   if (hoveredEl.classList.contains("pointer-enter")) {
     hoveredEl.onmousemove = () => {
@@ -202,6 +214,7 @@ const mouseCircleTransform = (hoveredEl) => {
       height: ${hoveredEl.getBoundingClientRect().height}px;
       top: ${hoveredEl.getBoundingClientRect().top}px;
       left: ${hoveredEl.getBoundingClientRect().left}px;
+      padding: 1rem;
       opacity: 1;
       transform: translate(0, 0);
       animation: none;
@@ -222,9 +235,10 @@ const mouseCircleTransform = (hoveredEl) => {
   }
 };
 
-/*----------------------Mouse Circle Transform---------------------------*/
+/*-----------------------------------------Mouse Circle Transform------------------------------------------------*/
 
-/*----------------------Main Button---------------------------*/
+
+/*-----------------------------------------Main Button------------------------------------------------*/
 const mainBtns = document.querySelectorAll(".main-btn");
 mainBtns.forEach((btn) => {
   let ripple;
@@ -245,9 +259,13 @@ mainBtns.forEach((btn) => {
   });
 });
 
-/*----------------------Main Button---------------------------*/
+/*-----------------------------------------Main Button------------------------------------------------*/
 
-/*----------------------About Me Text---------------------------*/
+
+
+
+
+/*----------------------------------------Section 2-----------------------------------------------*/
 const aboutMeText = document.querySelector(".about-me-text");
 const aboutMeTextContent =
   "I am a designer & I create awards winning websites with the best user experience & I do not talk much, just contact me. :)";
@@ -262,9 +280,13 @@ Array.from(aboutMeTextContent).forEach((char) => {
   });
 });
 
-/*----------------------About Me Text---------------------------*/
+/*----------------------------------------Section 2------------------------------------------------*/
 
-/*----------------------Projects---------------------------*/
+
+
+
+
+/*------------------------------------------Section 3---------------------------------------------------*/
 const container = document.querySelector(".container");
 const projects = document.querySelectorAll(".project");
 const projectHideBtn = document.querySelector(".project-hide-btn");
@@ -272,7 +294,7 @@ const projectHideBtn = document.querySelector(".project-hide-btn");
 projects.forEach((project, i) => {
   project.addEventListener("mouseenter", () => {
     project.firstElementChild.style.top = `-${
-      project.firstElementChild.offsetHeight - project.offsetHeight + 20
+      project.firstElementChild.offsetHeight - project.offsetHeight
     }px`;
   });
 
@@ -363,9 +385,12 @@ projectsBtn.addEventListener("click", (e) => {
   });
   showHideBool = !showHideBool;
 });
-/*----------------------Projects---------------------------*/
+/*------------------------------------------Section 3---------------------------------------------------*/
 
-/*----------------------Section 4---------------------------*/
+
+
+
+/*------------------------------------------Section 4---------------------------------------------------*/
 document.querySelectorAll(".service-btn").forEach((service) => {
   service.addEventListener("click", (e) => {
     e.preventDefault();
@@ -380,10 +405,32 @@ document.querySelectorAll(".service-btn").forEach((service) => {
     service.firstElementChild.style.right = rightPosition;
   });
 });
+/*-----------------------------------------Section 4------------------------------------------------*/
 
-/*----------------------Section 4---------------------------*/
 
-/*----------------------Section 5---------------------------*/
+
+
+/*-----------------------------------------Section 5------------------------------------------------*/
+const articles = document.querySelectorAll(".article")
+
+
+articles.forEach(article => {
+  article.addEventListener("mouseenter", () => {
+    article.firstElementChild.style.top = `-${article.firstElementChild.offsetHeight - article.offsetHeight}px`;
+  })
+
+  article.addEventListener("mouseleave", () => {
+    article.firstElementChild.style.top = "2rem";
+  })
+})
+
+
+/*-----------------------------------------Section 5------------------------------------------------*/
+
+
+
+
+/*-----------------------------------------Section 6------------------------------------------------*/
 
 // Forms
 const formHeading = document.querySelector(".form-heading");
@@ -440,6 +487,7 @@ const email = document.getElementById("email");
 const subject = document.getElementById("subject");
 const message = document.getElementById("message");
 const messages = document.querySelectorAll(".message");
+const submitBtn = document.querySelector(".form-submit-btn");
 
 const error = (input, message) => {
   input.nextElementSibling.classList.add("error");
@@ -476,6 +524,20 @@ const checkEmail = (input) => {
   }
 };
 
+
+submitBtn.addEventListener("mouseenter", (e) => {
+  let ripple;
+  console.log("This is working")
+  const left = e.clientX - e.target.getBoundingClientRect().left;
+  const top = e.clientY - e.target.getBoundingClientRect().top;
+
+  ripple = document.createElement("div");
+  ripple.classList.add("ripple");
+  ripple.style.left = `${left}px`;
+  ripple.style.top = `${top}px`;
+  submitBtn.prepend(ripple);
+})
+
 form.addEventListener("submit", (e) => {
   checkLength(username, 2);
   checkLength(subject, 2);
@@ -490,4 +552,4 @@ form.addEventListener("submit", (e) => {
   notValid && e.preventDefault();
 });
 
-/*----------------------Section 5---------------------------*/
+/*----------------------Section 6---------------------------*/
