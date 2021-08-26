@@ -405,14 +405,18 @@ document.querySelectorAll(".service-btn").forEach((service) => {
     service.firstElementChild.style.right = rightPosition;
   });
 });
+
+
+
 /*-----------------------------------------Section 4------------------------------------------------*/
 
 
 
 
 /*-----------------------------------------Section 5------------------------------------------------*/
+const artContainer = document.querySelector(".container");
 const articles = document.querySelectorAll(".article")
-
+const articleHideBtn = document.querySelector(".article-hide-btn");
 
 articles.forEach(article => {
   article.addEventListener("mouseenter", () => {
@@ -422,6 +426,40 @@ articles.forEach(article => {
   article.addEventListener("mouseleave", () => {
     article.firstElementChild.style.top = "2rem";
   })
+  article.addEventListener("click", () => {
+    const bigArtImgWrapper = document.createElement("div");
+    bigArtImgWrapper.className = "article-img-wrapper";
+    artContainer.appendChild(bigArtImgWrapper);
+  
+    const bigImgArt = document.createElement("img");
+    bigImgArt.className = "article-img";
+    const imgPath = article.firstElementChild.getAttribute("src").split(".")[0];
+    bigImgArt.setAttribute("src", `${imgPath}-big.jpg`);
+    bigArtImgWrapper.appendChild(bigImgArt);
+    document.body.style.overflowY = "hidden";
+  
+    document.removeEventListener("scroll", scrollFn);
+  
+    mouseCircle.style.opacity = 0;
+  
+    progressBarFn(bigArtImgWrapper);
+  
+    bigArtImgWrapper.onscroll = () => {
+      progressBarFn(bigArtImgWrapper);
+    };
+    articleHideBtn.classList.add("change");
+
+    articleHideBtn.onclick = () => {
+      articleHideBtn.classList.remove("change");
+      bigArtImgWrapper.remove();
+      document.body.style.overflowY = "scroll";
+
+      document.addEventListener("scroll", scrollFn);
+
+      progressBarFn();
+    };
+  
+  });
 })
 
 
