@@ -1483,6 +1483,10 @@ html {
 
   .section-5 {
     height: 100%;
+    margin-bottom: 0;
+  }
+  .section-6 {
+    margin-top: 0;
   }
   .contact-form {
     height: 50rem;
@@ -1512,7 +1516,7 @@ html {
   }
 
   .logo {
-    font-size: 1.8rem;
+    font-size: 2rem;
     top: 15rem;
     left: 50%;
     transform: translateX(-50%);
@@ -1523,9 +1527,6 @@ html {
     padding: 0;
   }
 
-  .main-circle {
-    width: 35rem;
-  }
 
   .main-circle:hover {
     width: 42rem;
@@ -1538,7 +1539,7 @@ html {
 
   .section-5{
     padding: 0;
-    margin-bottom: 30rem;
+    height: 100vh;
   }
 
   .form-heading {

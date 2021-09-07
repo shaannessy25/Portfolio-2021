@@ -268,7 +268,7 @@ mainBtns.forEach((btn) => {
 /*----------------------------------------Section 2-----------------------------------------------*/
 const aboutMeText = document.querySelector(".about-me-text");
 const aboutMeTextContent =
-  "I am a designer & I create awards winning websites with the best user experience & I do not talk much, just contact me. :)";
+  "Hi, I am a software engineer with a focus in frontend development. I am eager to grow and show-case my skills";
 
 Array.from(aboutMeTextContent).forEach((char) => {
   const span = document.createElement("span");
